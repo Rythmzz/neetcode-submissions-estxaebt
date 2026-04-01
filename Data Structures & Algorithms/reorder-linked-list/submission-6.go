@@ -1,0 +1,44 @@
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+
+func reorderList(head *ListNode) {
+	if head == nil || head.Next == nil {
+		return
+	}
+    slow, fast := head,head.Next
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	var sc *ListNode
+	curr := slow.Next
+	for curr != nil {
+		next := curr.Next
+		curr.Next = sc
+		sc = curr
+		curr = next
+	}
+	slow.Next = nil
+
+	fc := head
+	for fc != nil && sc != nil {
+		fcNext := fc.Next
+		scNext := sc.Next
+
+		fc.Next = sc
+
+		if fcNext != nil {
+			sc.Next = fcNext
+		}
+
+		fc = fcNext
+		sc = scNext
+	}
+
+}
