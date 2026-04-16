@@ -1,40 +1,17 @@
-func threeSum(nums []int) [][]int {
-	result := [][]int{}
+func twoSum(numbers []int, target int) []int {
+	l,r := 0, len(numbers)-1
 
-	sort.Ints(nums)
+	for l < r {
+		sum := numbers[l] + numbers[r]
 
-	for i:= 0; i< len(nums);i++{
-		if i >0 && nums[i] == nums[i-1] {
-			continue
-		}
-
-		j,k := i+1, len(nums)-1
-		for j < k {
-			sum := nums[i] + nums[j] + nums[k]
-
-			if j < k && sum > 0 {
-				k--
-			} else if j < k && sum < 0 {
-				j++
-			} else {
-				for j < k && nums[j] == nums[j+1] {
-					j++
-				}
-
-				for j< k && nums[k] == nums[k-1] {
-					k--
-				}
-
-				arr := []int{nums[i],nums[j],nums[k]}
-				result = append(result,arr)
-				j++
-				k--
-			}
-
-
-
+		if target > sum {
+			l++
+		} else if target < sum {
+			r--
+		} else {
+			return []int{l+1,r+1}
 		}
 	}
 
-	return result
+	return nil
 }
